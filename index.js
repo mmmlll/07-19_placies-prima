@@ -7,7 +7,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
-const url = 'mongodb://localhost:27017/placies'
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/placies'  // this assumes u have entered ur credit card info in Heroku; this means they will set up the MongoDB config (DB hosted at mLab) for you. if you didn't enter ur credit card info, you have to config the URL manually, based on info in ur mLab account. With heroku, the .env info hosted on Heroku's servers will be updated to have the required mLab account information 
 
 mongoose.Promise = global.Promise
 mongoose.connect(url, {
