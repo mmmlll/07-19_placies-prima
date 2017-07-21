@@ -7,7 +7,11 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/placies'  // this assumes u have entered ur credit card info in Heroku; this means they will set up the MongoDB config (DB hosted at mLab) for you. if you didn't enter ur credit card info, you have to config the URL manually, based on info in ur mLab account. With heroku, the .env info hosted on Heroku's servers will be updated to have the required mLab account information 
+// heroku addon way
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/placies'
+
+// self adding
+// const url = process.env.MLAB_URI || 'mongodb://localhost:27017/placies'
 
 mongoose.Promise = global.Promise
 mongoose.connect(url, {
@@ -39,6 +43,12 @@ app.use(bodyParser.urlencoded({extended: true}))
 // setup all files that the proj needs to require
 const placesRoute = require('./routes/placeRoute')
 const usersRoute = require('./routes/userRoute')
+
+// setup app.locals variables
+
+app.locals = {
+  GOOGLE_PLACE_KEY: process.env.GOOGLE_PLACE_KEY
+}
 
 // setup your project routes
 // NO REQUIRING AFTER THIS LINE
